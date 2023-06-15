@@ -50,13 +50,13 @@ class About(BaseModel):
     volunteers = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.donation
+        return f"{self.donation}"
 
 
 class Service(BaseModel):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    image = models.ImageField(upload_to="service/")
+    icon = models.CharField(max_length=50)
     order = models.PositiveIntegerField()
 
 
@@ -87,6 +87,7 @@ class Category(BaseModel):
 
 class Projects(BaseModel):
     name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='projects/', null=True, blank=True)
     link = models.URLField()
     desciption = models.TextField()
     used_tools = models.ManyToManyField(Tool)
