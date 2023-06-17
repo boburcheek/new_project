@@ -24,8 +24,27 @@ def home(request):
     }
     return render(request, "index.html", contex)
 
-    def about(request):
-        return render(request, "about-us.html")
+
+def about(request):
+    about = About.objects.last()
+    tools = Tool.objects.all().order_by("order")
+
+    context = {
+        "about": about,
+        "tools": tools
+    }
+    return render(request, "about-us.html", context)
+
+
+def portfolio(request):
+    categories = Category.objects.all()
+    projects = Projects.objects.all()
+
+    context = {
+        "categories": categories,
+        "projects": projects
+    }
+    return render(request, "portfolio.html", context)
 
 
 class PostListView(generic.ListView):
@@ -68,12 +87,3 @@ class PostDetailView(generic.DetailView):
         context.update({"profile_data": profile_data,
                         "most_watched_posts": popular_post})
         return context
-
-
-def about():
-    return None
-
-
-
-
-
